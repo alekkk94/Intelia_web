@@ -7,9 +7,6 @@ document.addEventListener('DOMContentLoaded', function() {
         offset: 100
     });
 
-    // Initialize form handling
-    initializeform();
-
     // Smooth scroll navigation
     initializeSmoothScroll();
 
@@ -62,83 +59,6 @@ function initializeFormValidation() {
         }, false);
     });
 }
-
-// Contact form handling
-function initializeform() {
-    const contactForm = document.getElementById('contactForm');
-    const formMessage = document.getElementById('formMessage');
-
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            // Get form data
-            const formData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                company: document.getElementById('company').value,
-                message: document.getElementById('message').value
-            };
-
-            // Validate form
-            if (!contactForm.checkValidity()) {
-                contactForm.classList.add('was-validated');
-                return;
-            }
-
-            // Show success message (for now, since we don't have a backend)
-            displayFormMessage('success', 'Thank you for your message! We\'ll get back to you soon.');
-
-            // Clear form
-            contactForm.reset();
-            contactForm.classList.remove('was-validated');
-
-            // Log form data (can be sent to backend later)
-            console.log('Form submitted with data:', formData);
-
-            // Optional: Send to backend (requires backend setup)
-            // sendFormToBackend(formData);
-        });
-    }
-}
-
-// Display form message
-function displayFormMessage(type, message) {
-    const formMessage = document.getElementById('formMessage');
-    formMessage.textContent = message;
-    formMessage.className = type;
-
-    // Auto-hide message after 5 seconds
-    setTimeout(() => {
-        formMessage.className = '';
-    }, 5000);
-}
-
-// Optional: Send form data to backend (uncomment and configure when ready)
-/*
-function sendFormToBackend(formData) {
-    fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData)
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            displayFormMessage('success', 'Thank you for your message! We\'ll get back to you soon.');
-            document.getElementById('contactForm').reset();
-        } else {
-            displayFormMessage('error', 'Error sending message. Please try again.');
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        displayFormMessage('error', 'Error sending message. Please try again.');
-    });
-}
-*/
 
 // Navbar shadow on scroll
 window.addEventListener('scroll', function() {
